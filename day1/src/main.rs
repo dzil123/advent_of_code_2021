@@ -30,18 +30,10 @@ fn main() {
 
     {
         let max_window_size = 3;
-        let mut queue = std::collections::VecDeque::new();
 
-        let iter = input.iter().copied().filter_map(|x| {
-            queue.push_back(x);
-            if queue.len() < max_window_size {
-                return None;
-            }
-            if queue.len() > max_window_size {
-                queue.pop_front();
-            }
-            Some(queue.iter().copied().sum())
-        });
+        let iter = input
+            .windows(max_window_size)
+            .map(|x| x.iter().copied().sum());
 
         let count = part1(iter);
         println!("part 2: {}", count);
